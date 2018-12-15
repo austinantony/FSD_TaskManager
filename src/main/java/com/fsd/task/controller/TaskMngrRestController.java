@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fsd.task.bean.Task;
 import com.fsd.task.bean.TaskVO;
 import com.fsd.task.service.TaskManagerService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/taskmanager")
+@EnableWebMvc
 public class TaskMngrRestController {
 
 	@Autowired
@@ -36,20 +38,20 @@ public class TaskMngrRestController {
 	@RequestMapping(value = "/rest/task", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Task updateTask(@RequestBody Task task) {
 		
-		if (task == null || "".equals(task.getTaskId())) {
-			return null;
-		} else {
+		if (task != null) {
 			return taskManagerService.updateTask(task);
+		} else {
+			return null;
 		}
 	}
 	
 	@RequestMapping(value = "/rest/endtask", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Task endTask(@RequestBody Task task) {
 		
-		if (task == null || "".equals(task.getTaskId())) {
-			return null;
-		} else {
+		if (task != null) {
 			return taskManagerService.endTask(task);
+		} else {
+			return null;
 		}
 	}
 	
